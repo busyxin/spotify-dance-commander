@@ -265,6 +265,120 @@
     <span class="input__media__activate--mobile"> you need to <a href="#">refresh the page</a> and allow camera access.</span>
 </p>
 </div>
+<script>
+    const Player = {
+
+        // Authentication
+        player: {},
+
+        sendToLogin: () => {
+            const client_id    = "766a0e7ad95b445fbccb5b961c4e3877";
+            const redirect_uri = "https://spotiauth.localtunnel.me" 
+        
+            const scopes = "streaming user-read-birthdate " + 
+                        "user-read-email user-read-private " +
+                        "user-modify-playback-state"
+            const authUrl = [
+            "https://accounts.spotify.com/authorize",
+            `?client_id=${client_id}`,
+            `&redirect_uri=${redirect_uri}`,
+            `&scope=${scopes.replace(" ", "%20")}`,
+            "&response_type=token",
+            "&show_dialog=true"
+            ].join('')
+            
+            if(!localStorage.getItem('spotify_access_token')) {
+            window.location = authUrl
+            }
+        },
+
+        initialize: () => {
+            console.log('initialize called')
+            const access_token = Player.getAccessToken()
+            console.log(access_token)
+            if(access_token) {
+            Player.player = new Spotify.Player({
+                name: "My Player",
+                getOAuthToken: function (callback) {
+                // Run code to get a fresh access token
+                const access_token = Player.getAccessToken()
+                if (access_token) {
+                    callback(access_token);
+                }
+                },
+                volume: 0.5
+            })
+
+            // Error handling
+            Player.player.on("initialization_error", (e) => {
+                console.error("Initialization Error", e.message);
+            });
+
+            Player.player.on("authentication_error", (e) => {
+                console.error("Authentication Error", e.message);
+            });
+
+            Player.player.on("account_error", (e) => {
+                console.error("Account Error", e.message);
+            });
+
+            Player.player.on("playback_error", (e) => {
+                console.error("Playback Error", e.message);
+            });
+
+            // Make our player go live
+            Player.player.connect();
+
+            // Run our internal method of when the player has connected
+            Player.player.on("ready", (data) => { Player.player.resume() })
+            }
+        },
+
+        extractAccessTokenFromQuery: () => {
+            let hashExists = window.location.hash.length > 0
+            let hash = window.location.hash
+            .substring(1)
+            .split('&')
+            .reduce((initial, item) => {
+            if (item) {
+                const parts = item.split('=');
+                initial[parts[0]] = decodeURIComponent(parts[1]);
+            }
+            return initial;
+            }, {})
+            
+            if(hashExists) {
+                return hash.access_token
+            }
+            else {
+                return null
+            }    
+        },
+
+        getAccessToken: () => {
+            console.log('getAccessToken called')
+            let access_token = localStorage.getItem('spotify_access_token')
+            console.log(access_token)
+            if(access_token) {
+            return access_token
+            }
+            else {
+            access_token = Player.extractAccessTokenFromQuery()
+            if(access_token) {
+                localStorage.setItem('spotify_access_token', access_token)
+                return access_token
+            }
+            else {
+                Player.sendToLogin()
+            }
+            }
+        }
+        }
+</script>
+<script src="https://sdk.scdn.co/spotify-player.js"></script>
+<script>
+  window.onSpotifyWebPlaybackSDKReady = Player.initialize
+</script>
 <script async src="https://www.googletagmanager.com/gtag/js?id=UA-107306747-1"></script>
 <script> window.dataLayer = window.dataLayer || []; function gtag(){dataLayer.push(arguments)}; gtag('js', new Date()); gtag('config', 'UA-107306747-1'); </script>
 <script type="text/javascript">
