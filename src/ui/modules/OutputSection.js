@@ -15,6 +15,7 @@
 class OutputSection {
     constructor(element) {
         this.element = element;
+        this.index = 0;
 
         const outputs = {
             GIFOutput: new GIFOutput(),
@@ -120,11 +121,15 @@ class OutputSection {
 
     trigger(id) {
         let index = this.classNames.indexOf(id);
-        this.currentOutput.trigger(index);
 
-        if (this.broadcastEvents) {
-            let event = new CustomEvent('class-triggered', {detail: {id: id}});
-            window.dispatchEvent(event);
+        if (this.index !== index) {
+            this.currentOutput.trigger(index);
+            this.index = index;
+
+            if (this.broadcastEvents) {
+                let event = new CustomEvent('class-triggered', {detail: {id: id}});
+                window.dispatchEvent(event);
+            }
         }
     }
 }

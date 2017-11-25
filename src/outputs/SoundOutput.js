@@ -14,43 +14,18 @@
 
 class SoundOutput {
 	constructor() {
-		this.id = 'SoundOutput';
+		this.id = 'spotify-widget';
 		this.loaded = false;
 		this.canTrigger = true;
 		this.basePath = 'assets/outputs/sound/sounds/';
 		this.assets = [];
-
-		this.assets.push('applause.mp3');
-		this.assets.push('bass.mp3');
-		this.assets.push('birds.mp3');
-		this.assets.push('cow.mp3');
-		this.assets.push('drum_joke.mp3');
-		this.assets.push('drum_roll.mp3');
-		this.assets.push('drums_1.mp3');
-		this.assets.push('drums_2.mp3');
-		this.assets.push('fanfare.mp3');
-		this.assets.push('flute_1.mp3');
-		this.assets.push('flute_2.mp3');
-		this.assets.push('flute_3.mp3');
-		this.assets.push('guitar_1.mp3');
-		this.assets.push('guitar_2.mp3');
-		this.assets.push('harp.mp3');
-		this.assets.push('jingle.mp3');
-		this.assets.push('orchestra.mp3');
-		this.assets.push('organ.mp3');
-		this.assets.push('trombone.mp3');
-		this.assets.push('trumpet_1.mp3');
-		this.assets.push('trumpet_2.mp3');
-		this.assets.push('trumpet_3.mp3');
-		this.assets.push('tuba.mp3');
-		
 		this.numAssets = this.assets.length;
         window.addEventListener('mobileLaunch', this.touchAudio.bind(this));
 
 		this.defaultAssets = [];
-		this.defaultAssets[0] = 'birds.mp3';
-		this.defaultAssets[1] = 'guitar_1.mp3';
-		this.defaultAssets[2] = 'trombone.mp3';
+		this.defaultAssets[0] = 'spotify:track:6OGRM4MAOlyOdhHuX0OJ6P';
+		this.defaultAssets[1] = 'spotify:track:0MKGH8UMfCnq5w7nG06oM5';
+		this.defaultAssets[2] = 'spotify:track:2UKYMN7VnsQo40n0qCt6Sa';
 
 		this.numLoaded = 0;
 		this.sounds = {};
@@ -279,55 +254,22 @@ class SoundOutput {
 	}
 
 	trigger(index) {
-        if (!GLOBALS.clearing) {
-            if (this.currentIndex !== index) {
-                this.currentIndex = index;
+		const parent = document.getElementById('output');
+		const target = document.getElementById('spotify-widget');
+		const newUri = 'https://open.spotify.com/embed?uri=' + this.defaultAssets[index];
 
-                let sound = this.inputClasses[this.currentIndex].sound;
-                if (sound) {
-                    this.playSound(sound);
-                }else {
-                    this.muteSounds();
-                }
+		target.setAttribute('src', newUri);
+	}
 
-                if (this.currentIcon) {
-                    this.currentIcon.classList.remove('output__sound-speaker--active');
-                }
-
-                if (this.currentBorder && this.currentClassName) {
-                    this.currentBorder.classList.remove(`output__sound-input--${this.currentClassName}-selected`);
-                }
-
-                let border = this.inputClasses[index].input;
-                let id = this.classNames[index];
-
-                this.currentClassName = id;
-                this.currentBorder = border;
-                this.currentBorder.classList.add(`output__sound-input--${this.currentClassName}-selected`);
-
-                this.currentIcon = this.inputClasses[this.currentIndex];
-                this.currentIcon.classList.add('output__sound-speaker--active');
-                if (this.canvas) {
-                    sound === null ? sound = '(nothing)' : sound;
-                    this.updateCanvas(this.currentIndex, sound);
-                }
-
-            }
-        }
-        if (GLOBALS.clearing) {
-            if (this.currentIcon) {
-                this.currentIcon.classList.remove('output__sound-speaker--active');
-            }
-            if (this.currentBorder && this.currentClassName) {
-                this.currentBorder.classList.remove(`output__sound-input--${this.currentClassName}-selected`);
-            }
-            for (let index = 0; index < this.numAssets; index += 1) {
-                let id = this.assets[index];
-                this.sounds[id].pause();
-            }
-        }
-    }
-
+	setAttributes(el, attrs) {
+		if (attrs) {
+			for (let key in attrs) {
+				if (key) {
+					el.setAttribute(key, attrs[key]);
+				}
+			}
+		}
+	}
 
 	stop() {
 		for (let index = 0; index < this.numAssets; index += 1) {
