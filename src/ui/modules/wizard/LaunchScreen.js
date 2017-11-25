@@ -27,8 +27,8 @@ class LaunchScreen {
         document.querySelector('.wizard__launch-skip-paragraph').style.display = 'none';
         document.querySelector('.wizard__browser-warning').style.display = 'block';
 
-        let facebookButton = document.querySelector('.intro__share-link--facebook');
-        let twitterButton = document.querySelector('.intro__share-link--twitter');
+        // let facebookButton = document.querySelector('.intro__share-link--facebook');
+        // let twitterButton = document.querySelector('.intro__share-link--twitter');
 
         let intro = document.querySelector('.intro__content-mobile');
         /*eslint-disable */
@@ -40,26 +40,26 @@ class LaunchScreen {
         intro.addEventListener('touchmove', defaultPrevent);
 
 
-        let loader = ((el) => {
-            let ajax = new XMLHttpRequest();
-            ajax.open('GET', 'assets/social-facebook.svg', true);
-            ajax.onload = (event) => {
-                el.innerHTML = ajax.responseText;
-            };
-            ajax.send();
-        })(facebookButton);
+        // let loader = ((el) => {
+        //     let ajax = new XMLHttpRequest();
+        //     ajax.open('GET', 'assets/social-facebook.svg', true);
+        //     ajax.onload = (event) => {
+        //         el.innerHTML = ajax.responseText;
+        //     };
+        //     ajax.send();
+        // })(facebookButton);
 
-        loader = ((el) => {
-            let ajax = new XMLHttpRequest();
-            ajax.open('GET', 'assets/social-twitter.svg', true);
-            ajax.onload = (event) => {
-                el.innerHTML = ajax.responseText;
-            };
-            ajax.send();
-        })(twitterButton);
+        // loader = ((el) => {
+        //     let ajax = new XMLHttpRequest();
+        //     ajax.open('GET', 'assets/social-twitter.svg', true);
+        //     ajax.onload = (event) => {
+        //         el.innerHTML = ajax.responseText;
+        //     };
+        //     ajax.send();
+        // })(twitterButton);
 
-        facebookButton.addEventListener('click', this.openFacebookPopup.bind(this));
-        twitterButton.addEventListener('click', this.openTwitterPopup.bind(this));
+        // facebookButton.addEventListener('click', this.openFacebookPopup.bind(this));
+        // twitterButton.addEventListener('click', this.openTwitterPopup.bind(this));
         
         if (GLOBALS.browserUtils.isCompatible === true && GLOBALS.browserUtils.isMobile === false) {
             this.startButton.element.classList.remove('button--disabled');
