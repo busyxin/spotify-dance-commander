@@ -276,7 +276,7 @@
 
         sendToLogin: () => {
             const client_id    = "766a0e7ad95b445fbccb5b961c4e3877";
-            const redirect_uri = "https://spotiauth.localtunnel.me" 
+            const redirect_uri = "https://10.100.9.204:3000/" 
         
             const scopes = "streaming user-read-birthdate " + 
                             "user-read-email user-read-private " +
@@ -334,7 +334,9 @@
                 Player.player.connect();
 
                 // Run our internal method of when the player has connected
-                Player.player.on("ready", (data) => { console.log('ready'); Player.player.resume(); })
+                Player.player.on("ready", (data) => { 
+                    Player.device_id = data.device_id
+                })
             }
         },
 

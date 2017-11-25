@@ -259,6 +259,18 @@ class SoundOutput {
 		const newUri = 'https://open.spotify.com/embed?uri=' + this.defaultAssets[index];
 
 		target.setAttribute('src', newUri);
+		console.log("tries to resume");
+		console.log(localStorage)
+		fetch(`https://api.spotify.com/v1/me/player/play?device_id=${Player.device_id}`, {
+			method: 'PUT',
+			body: JSON.stringify({
+					"uris": [this.defaultAssets[index]],
+				}),
+			headers: { 
+				'Content-Type': 'application/json',
+				'Authorization': `Bearer ${localStorage.spotify_access_token}`
+			}
+		})
 	}
 
 	setAttributes(el, attrs) {
