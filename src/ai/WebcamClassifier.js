@@ -292,7 +292,7 @@ class WebcamClassifier {
   animate() {
     if (this.isDown) {
       this.math.scope(() => {
-        console.log(this.saveTrainingLogits(this.current.index));
+        this.saveTrainingLogits(this.current.index);
       });
 
       this.current.imagesCount += 1;

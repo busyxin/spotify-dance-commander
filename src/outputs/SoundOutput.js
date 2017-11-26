@@ -255,22 +255,39 @@ class SoundOutput {
 
 	trigger(index) {
 		const parent = document.getElementById('output');
-		const target = document.getElementById('spotify-widget');
-		const newUri = 'https://open.spotify.com/embed?uri=' + this.defaultAssets[index];
 
-		target.setAttribute('src', newUri);
-		console.log("tries to resume");
-		console.log(localStorage)
-		fetch(`https://api.spotify.com/v1/me/player/play?device_id=${Player.device_id}`, {
+		if (index < 2) {
+			this.setPlayTrack([this.defaultAssets[index]])
+			.catch(console.error)
+
+		} else {
+			fetch(`https://api.spotify.com/v1/recommendations?tempo=128&seed_genres=breakbeat,detroit-techno,deep-house,techno&min_popularity=70`, {
+				method: 'GET',
+				headers: {
+					'Content-Type': 'application/json',
+					'Authorization': `Bearer ${localStorage.spotify_access_token}`
+				}
+			})
+			.then(result => result.json())
+			.then(json => json.tracks.map(track => track.uri))
+			.then(uris => this.setPlayTrack(uris))
+			.catch(console.error)
+		}
+	}
+
+	setPlayTrack(uris) {
+		const target = document.getElementById('spotify-widget');
+		const uri = 'https://open.spotify.com/embed?uri='
+
+		return fetch(`https://api.spotify.com/v1/me/player/play?device_id=${Player.device_id}`, {
 			method: 'PUT',
-			body: JSON.stringify({
-					"uris": [this.defaultAssets[index]],
-				}),
+			body: JSON.stringify({uris}),
 			headers: { 
 				'Content-Type': 'application/json',
 				'Authorization': `Bearer ${localStorage.spotify_access_token}`
 			}
 		})
+		.then(() => target.setAttribute('src', uri + uris[0]))
 	}
 
 	setAttributes(el, attrs) {

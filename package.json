@@ -31,10 +31,6 @@
     "watch": "npm run style-build && concurrently \"npm run assets-watch\" \"npm run html-watch\" \"npm run budo\" \"npm run style-watch\"",
     "watch-https": "npm run style-build && concurrently \"npm run assets-watch\" \"npm run html-watch\" \"npm run budo-https\" \"npm run style-watch\""
   },
-  "pre-commit": [
-    "eslint",
-    "stylint"
-  ],
   "dependencies": {
     "babel-preset-es2015": "^6.14.0",
     "babelify": "^7.3.0",
