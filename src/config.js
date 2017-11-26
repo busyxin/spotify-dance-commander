@@ -51,9 +51,10 @@ let GLOBALS = {
 	classesTrained: {
 		'green': false,
 		'purple': false,
-		'orange': false
+		'orange': false,
+		'red': false
 	},
-	numClasses: 3,
+	numClasses: 4,
 	audioContext: new AudioContext(),
     isBackFacingCam: false
 };

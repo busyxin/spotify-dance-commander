@@ -720,10 +720,12 @@ skip(event) {
     GLOBALS.learningSection.dehighlightClass(0);
     GLOBALS.learningSection.dehighlightClass(1);
     GLOBALS.learningSection.dehighlightClass(2);
+    GLOBALS.learningSection.dehighlightClass(3);
     GLOBALS.learningSection.enable();
     GLOBALS.learningSection.enableClass(0);
     GLOBALS.learningSection.enableClass(1);
     GLOBALS.learningSection.enableClass(2);
+    GLOBALS.learningSection.enableClass(3);
     GLOBALS.learningSection.undim();
     GLOBALS.outputSection.dehighlight();
     GLOBALS.outputSection.enable();
