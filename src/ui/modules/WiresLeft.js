@@ -44,7 +44,7 @@ class WiresLeft {
         this.context.clearRect(0, 0, this.width, this.height);
         this.context.lineWidth = 3;
 
-        for (let index = 0; index < 3; index += 1) {
+        for (let index = 0; index < 4; index += 1) { // LearningClassConstant
 
             let startY = this.startY + (this.startSpace * index);
             let endY = this.endY + (this.endSpace * index);
@@ -153,7 +153,7 @@ class WiresLeft {
         this.width = this.element.offsetWidth;
 
         let firstLearningClass = this.learningClasses[0];
-        let lastLearningClass = this.learningClasses[2];
+        let lastLearningClass = this.learningClasses[3]; // LearningClassConstant
 
         let classesHeight = lastLearningClass.offsetTop - firstLearningClass.offsetTop;
 
@@ -175,7 +175,7 @@ class WiresLeft {
         this.endY = 80;
 
         this.animator = {};
-        for (let index = 0; index < 3; index += 1) {
+        for (let index = 0; index < 4; index += 1) { // LearningClassConstant
             let id = GLOBALS.classNames[index];
             this.animator[index] = {
                 highlight: false,

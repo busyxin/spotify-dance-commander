@@ -165,6 +165,27 @@
                                     <a href="#" class="button button--record button--color-orange"><span class="button__content button__content--small">Train <br>Orange</span></a>
                                 </div>
                             </div>
+                            <div id="red" class="learning__class learning__class--disabled learning__class--orange">
+                                <div class="examples">
+                                    <div class="machine__status examples__status"><span class="examples__counter">0</span> examples</div>
+                                    <div class="examples__wrapper">
+                                        <img src="assets/close.svg" class="examples__close-icon">
+                                        <a href="#" class="link link--reset">Reset</a>
+                                        <canvas class="examples__viewer"></canvas>
+                                    </div>
+                                </div>
+                                <div class="learning__class-column">
+                                    <div class="confidence">
+                                        <div class="machine__status confidence__status">Confidence</div>
+                                        <div class="machine__meter">
+                                            <div class="machine__value machine__value--color-orange">
+                                                <div class="machine__percentage machine__percentage--white">0%</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <a href="#" class="button button--record button--color-orange"><span class="button__content button__content--small">Train <br>Red</span></a>
+                                </div>
+                            </div>
                         </div>
                     </div>
                     <div class="wires wires--disabled wires--right">
@@ -296,7 +317,6 @@
         },
 
         initialize: () => {
-            console.log('initialize called')
             const access_token = Player.getAccessToken()
             if(access_token) {
                 Player.player = new Spotify.Player({
@@ -306,7 +326,6 @@
                         const access_token = Player.getAccessToken()
                         
                         if (access_token) {
-                            console.log('Access token used in callback:', access_token)
                             callback(access_token);
                         }
                     },
@@ -352,7 +371,7 @@
                     }
                     return initial;
                 }, {})
-            
+
             if(hashExists) {
                 // Let us know when the access token expires
                 setTimeout(() => {
@@ -365,25 +384,21 @@
             }
             else {
                 return null
-            }    
+            }
         },
 
         getAccessToken: () => {
-            console.log('getAccessToken called')
             let access_token = localStorage.getItem('spotify_access_token')
             if(access_token) {
-                console.log('Access token exists: ', access_token)
                 return access_token
             }
             else {
                 access_token = Player.extractAccessTokenFromQuery()
                 if(access_token) {
-                    console.log('Coming back from callback with this token: ', access_token)
                     localStorage.setItem('spotify_access_token', access_token)
                     return access_token
                 }
                 else {
-                    console.log('Getting new access token from Spotify...')
                     Player.sendToLogin()
                 }
             }

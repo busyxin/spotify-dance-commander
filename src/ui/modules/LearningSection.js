@@ -26,6 +26,8 @@ class LearningSection {
 		let classNames = GLOBALS.classNames;
 		let colors = GLOBALS.colors;
 		
+		console.log(learningClassesElements)
+
 		learningClassesElements.forEach(function(element, index) {
 			let id = classNames[index];
 			let color = colors[id];
@@ -187,7 +189,7 @@ class LearningSection {
 			GLOBALS.outputSection.trigger(id);
 		}
 
-		for (let index = 0; index < 3; index += 1) {
+		for (let index = 0; index < 4; index += 1) { // LearningClassConstant
 			this.learningClasses[index].setConfidence(confidences[index] * 100);
 			if (index === maxIndex) {
 				this.learningClasses[index].highlightConfidence();
