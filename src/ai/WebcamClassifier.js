@@ -88,6 +88,7 @@ class WebcamClassifier {
     }
 
     this.activateWebcamButton = document.getElementById('input__media__activate');
+    this.activateWebcamButton.style.display = 'none';
     if (this.activateWebcamButton) {
       this.activateWebcamButton.addEventListener('click', () => {
         location.reload();

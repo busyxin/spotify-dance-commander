@@ -10,7 +10,7 @@
 
 .machine {
 	position: relative
-	background: $color__background
+	background: #282828
 	padding-top: space(8)
 	padding-bottom: space(10)
 	text-align: center
@@ -23,7 +23,7 @@
 	display: flex
 	align-items: flex-start
 	// align-items: center
-	justify-content: center
+	justify-content: space-around
 	text-align: center
 	max-width: 1360px
 	margin-left: auto
@@ -46,14 +46,14 @@
 }
 
 .section__container {
-	background: $color__white
+	background: #404040
 	border-radius: 5px
 	padding: space(1.5)
+	display: flex;
 }
 
 .section--input {
 	position: relative
-	margin-top: 70px
 	width: 300px
 }
 
@@ -61,7 +61,7 @@
 	background: $color__background
 	overflow: hidden
 	position: relative
-	height: 270px
+	height: 300px
 }
 
 .input__media__activate {
@@ -102,8 +102,8 @@
 
 .section--learning {
 	position: relative
-	width: 360px
-	top: -10px
+	width: 100%
+	margin-top: 3rem;
 }
 
 .learning-condensed {
@@ -112,9 +112,10 @@
 
 .learning__class {
 	position: relative
-	margin-bottom: space(2)
 	display: flex
+	flex: 1 0 auto
 	text-align: left
+	margin: 1rem;
 }
 
 .learning__class--disabled {
@@ -135,10 +136,6 @@
 
 .learning__class--orange {
 	color: $color__class-orange--primary
-}
-
-.learning__class:last-of-type {
-	margin-bottom: 0
 }
 
 
@@ -203,7 +200,7 @@
 	margin-top: space(1.5)
 	width: 100%
 	height: 50px
-	flex: none
+	flex: 1 0 auto;
 	
 	@extend .font__size--small
 	@extend .uppercase
@@ -291,7 +288,6 @@
 .section--output {
 	position: relative
 	// margin-top: $section__offset
-	margin-top: 20px
 	width: 300px
 }
 
@@ -403,6 +399,7 @@
 //	Wires
 //
 .wires {
+	display: none
 	position: relative
 	width: 50px
 	height: 400px
@@ -765,6 +762,7 @@
 		width: 33.333%
 		margin-bottom: 0
 		margin-left: 3%
+    margin: 1rem;
 	}
 
 	.button--record {

@@ -61,7 +61,8 @@ class LaunchScreen {
         // facebookButton.addEventListener('click', this.openFacebookPopup.bind(this));
         // twitterButton.addEventListener('click', this.openTwitterPopup.bind(this));
         
-        if (GLOBALS.browserUtils.isCompatible === true && GLOBALS.browserUtils.isMobile === false) {
+        // if (GLOBALS.browserUtils.isCompatible === true && GLOBALS.browserUtils.isMobile === false) {
+        if(true) {
             this.startButton.element.classList.remove('button--disabled');
             document.querySelector('.wizard__launch-skip-paragraph').style.display = 'block';
             document.querySelector('.wizard__browser-warning').style.display = 'none';
@@ -79,11 +80,11 @@ class LaunchScreen {
             this.messageIsNotCompatible.style.display = 'block';
         }
 
-        this.skipButton.addEventListener('click', this.skipClick.bind(this));
-        this.skipButtonMobile.addEventListener('touchend', this.skipClick.bind(this));
-        this.skipButtonMobile.addEventListener('click', this.skipClick.bind(this));
-        this.startButton.element.addEventListener('click', this.startClick.bind(this));
-        this.startButton.element.addEventListener('touchend', this.startClick.bind(this));
+        // this.skipButton.addEventListener('click', this.skipClick.bind(this));
+        // this.skipButtonMobile.addEventListener('touchend', this.skipClick.bind(this));
+        // this.skipButtonMobile.addEventListener('click', this.skipClick.bind(this));
+        this.startButton.element.addEventListener('click', this.skipClick.bind(this));
+        this.startButton.element.addEventListener('touchend', this.skipClick.bind(this));
     }
 
     openFacebookPopup(event) {
